@@ -1,182 +1,41 @@
-# CloudGuard — Continuous Cloud Security & GRC Assurance Platform
-> **Continuous Technical Cloud Security Audit, Multi-Framework GRC Control Mapping, and Executive Risk Governance**
+# CloudGuard — Static Cloud Security & GRC Demo Bundle
 
-[![Audit Standards](https://img.shields.io/badge/Standards-CIS%20AWS%20v3.0%20%7C%20NIST%20CSF%202.0%20%7C%20ISO%2027001%20%7C%20SOC%202-blue.svg)](#-multi-framework-control-mapping-matrix)
-[![Security Tooling](https://img.shields.io/badge/Scanner-Prowler%20v4.0.0%20CLI-darkgreen.svg)](https://github.com/prowler-cloud/prowler)
-[![Audit Workpapers](https://img.shields.io/badge/Audit%20Evidence-20%20Documented%20Workpapers-purple.svg)](#-sample-audit-findings--workpaper-register)
-[![Database](https://img.shields.io/badge/Storage-SQLite3%20Relational%20Store-orange.svg)](#-database-schema--records)
-[![Auditor](https://img.shields.io/badge/Auditor-Nishan%20Khadgi-0f172a.svg)](https://github.com/Nishankhadgi)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+CloudGuard is a supplementary learning artifact for organizing example cloud-security findings, control-reference mappings, risk rationale, remediation recommendations, and executive-facing reporting. It is not a live monitoring platform.
 
----
+> **IMPORTANT — SIMULATED DATA:** The bundled cloud findings, AWS resources/account identifiers, controls, scores, dates, workpapers, reports, and dashboard records are illustrative examples. This repository is not connected to a production AWS account, a live Prowler scan, an employer, or a real audit engagement. Framework mappings and risk scores are examples for learning, not proof of compliance.
 
-## 📌 Executive Summary & Problem Statement
+## Owner profile
 
-In enterprise cloud environments, automated security scanning tools (such as Prowler, AWS Security Hub, or Prisma Cloud) generate voluminous technical alerts. However, **Internal Audit, Technology Risk Advisory, C-level Executives, and the Board of Directors** cannot consume raw JSON or CLI stdout. They require:
-- Traceable evidence mapped directly to authorized cybersecurity control frameworks.
-- Rigorous assessment of operational control effectiveness (ITGC).
-- Business risk quantification (Likelihood × Impact).
-- Clear management remediation ownership and strict SLA enforcement.
+**Nishan Khadgi — SOC Analyst**
 
-**CloudGuard** closes this operational gap. It ingests automated cloud scan outputs, executes an automated GRC cross-walk engine, computes risk scores across asset tiers, and generates formal audit deliverables—including an audit-ready CSV workpaper register, an executive CISO memorandum, a relational SQLite audit repository, and a live interactive web dashboard.
+The résumé supplied for this portfolio lists experience in security monitoring, alert triage, incident investigation, threat detection, threat hunting, SIEM/EDR, incident-response support, and security automation.
 
----
+- **Experience listed on résumé:** SOC Analyst, Sygnia, USA — May 2025–Present
+- **Education:** B.S. in Computer Security, SUNY Plattsburgh — August 2022–May 2026
+- **Certifications listed on résumé:** CompTIA Security+, CompTIA CySA+, AWS Certified Security - Specialty
+- **Email:** nishankhadgi091@gmail.com
+- **Phone:** +1 (518) 335-2680
+- **LinkedIn:** https://www.linkedin.com/in/nishankhadgi
+- **GitHub:** https://github.com/Nishankhadgi
 
-## 🏗️ Architecture & Audit Lifecycle Workflow
+## What's in this repository
 
-```mermaid
-flowchart TD
-    subgraph S1["1. Cloud Infrastructure & Assessment"]
-        AWS["AWS Production Environment\n(Account: 123456789012)\nServices: IAM, S3, EC2, CloudTrail, KMS, RDS, VPC"]
-        Prowler["Prowler v4.0.0 Engine\nCIS Benchmark & Security Hub Scan"]
-        Raw["data/prowler_aws_findings.csv\n(20 Technical Deficiencies)"]
-        AWS -->|API Telemetry| Prowler
-        Prowler -->|Raw Detection| Raw
-    end
+The current repository contains this README and cloudguard-vercel.zip. The ZIP includes a static HTML dashboard, example CSV evidence/report files, a sample SQLite database, a Markdown report, and a workflow file inside the archive. The archive is a bundle of demo assets rather than the source code needed to reproduce an end-to-end scan and report-generation pipeline.
 
-    subgraph S2["2. GRC Control Mapping Engine"]
-        Matrix["data/grc_compliance_matrix.csv\n(CIS v3.0, NIST CSF 2.0, ISO 27001, SOC 2)"]
-        Mapper["src/grc_mapper.py\nCross-Walk Normalization Engine"]
-        Raw --> Mapper
-        Matrix --> Mapper
-    end
+## View the static demo
 
-    subgraph S3["3. Risk Scoring & Quantification"]
-        RiskEngine["src/risk_quantifier.py\nLikelihood × Impact Scoring (1-25)\nService Criticality Multipliers & Remediation SLA Engine"]
-        DB["data/cloudguard_audit.db\nRelational SQLite Database"]
-        Mapper --> RiskEngine
-        RiskEngine --> DB
-    end
+1. Download cloudguard-vercel.zip from this repository.
+2. Extract the archive into a local folder.
+3. Open the extracted index.html or reports/Audit_Dashboard.html in a web browser.
+4. Treat all displayed data as fictional training data.
 
-    subgraph S4["4. Enterprise Audit Deliverables"]
-        CSV["reports/CloudGuard_AWS_Compliance_Audit_Evidence.csv\n(Standardized Audit Workpaper Register)"]
-        MD["reports/Executive_Cloud_Security_Audit_Report.md\n(Formal CISO & Audit Committee Deliverable)"]
-        HTML["reports/Audit_Dashboard.html\n(Interactive Browser Audit Console)"]
-        RiskEngine --> CSV
-        RiskEngine --> MD
-        RiskEngine --> HTML
-    end
-```
+No AWS credentials are required to view the static example. Do not upload real cloud findings, customer data, credentials, or production logs into a public repository.
 
----
+## Boundaries and limitations
 
-## 🎯 Core Capabilities & Audit Methodology
+- This is not a live AWS scanner or SIEM integration.
+- The ZIP does not include the full reproducible source pipeline.
+- A .github/workflows/ file inside the ZIP is not active GitHub Actions configuration until it is committed at that path in the repository.
+- The included risk-scoring examples and framework crosswalks are not a substitute for official standards, qualified assurance work, or an authorized security assessment.
 
-1. **Multi-Standard Cross-Walk Normalization:**  
-   Every technical finding is simultaneously linked to four premier compliance frameworks:
-   - **CIS AWS Foundations Benchmark v3.0**
-   - **NIST Cybersecurity Framework (CSF) 2.0**
-   - **ISO/IEC 27001:2022 (Annex A Controls)**
-   - **AICPA SOC 2 (2017 Trust Services Criteria - CC & A Series)**
-2. **Quantitative Risk Scoring (Likelihood × Impact = Inherent Risk):**  
-   Evaluates vulnerabilities on an objective 1–25 risk scale, applying asset criticality weighting (e.g., IAM Root & Production RDS receive heightened impact weight).
-3. **Traceable Audit Workpapers:**  
-   Issues standardized workpaper IDs (`WP-IAM-001`, `WP-S3-002`, `WP-EC2-003`) containing control objectives, testing procedures, resource ARNs, and management recommendations.
-4. **Remediation SLA Governance:**  
-   Enforces remediation deadlines with aging calculations:
-   - 🔴 **Critical Severity (Score 20–25):** 7 calendar days
-   - 🟠 **High Severity (Score 12–19):** 30 calendar days
-   - 🟡 **Medium Severity (Score 6–11):** 60 calendar days
-   - 🔵 **Low Severity (Score 1–5):** 90 calendar days
-5. **Relational Evidence Store (SQLite):**  
-   Normalized relational database (`data/cloudguard_audit.db`) storing engagements, findings, control requirements, and remediation tracking.
-6. **Executive Web Console:**  
-   Interactive HTML dashboard with instant keyword filtering, severity badges, testing modals, and CSV export.
-
----
-
-## 📊 Multi-Framework Control Mapping Matrix
-
-| Technical Finding | AWS Service | CIS AWS v3.0 | NIST CSF 2.0 | ISO 27001:2022 | AICPA SOC 2 | Remediation SLA |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Root Account MFA Disabled** | IAM | CIS 1.5 | PR.AA-01 | A.5.15 | CC6.1 | 7 Days (Critical) |
-| **S3 Public Access Block Disabled** | S3 | CIS 2.1.5 | PR.DS-01 | A.8.12 | CC6.6 | 7 Days (Critical) |
-| **SSH (Port 22) Ingress from 0.0.0.0/0** | EC2 | CIS 5.2 | PR.AC-05 | A.8.20 | CC6.6 | 7 Days (Critical) |
-| **RDS Instance Storage Unencrypted** | RDS | CIS 2.3.1 | PR.DS-01 | A.8.24 | CC6.1 | 7 Days (Critical) |
-| **IAM Policy Wildcard Administrator** | IAM | CIS 1.16 | PR.AA-01 | A.5.15 | CC6.3 | 7 Days (Critical) |
-| **S3 Data Write Events Not Logged** | CloudTrail | CIS 3.8 | DE.AE-03 | A.8.15 | CC7.2 | 30 Days (High) |
-| **KMS Customer Key Rotation Disabled** | KMS | CIS 2.8 | PR.DS-02 | A.8.24 | CC6.1 | 30 Days (High) |
-| **IAM User Access Key Unused >90 Days** | IAM | CIS 1.13 | PR.AA-05 | A.5.17 | CC6.3 | 30 Days (High) |
-| **S3 Default Bucket SSE-KMS Disabled** | S3 | CIS 2.1.1 | PR.DS-01 | A.8.24 | CC6.1 | 30 Days (High) |
-| **GuardDuty Disabled in Active Region** | GuardDuty | CIS 3.4 | DE.CM-01 | A.8.16 | CC7.2 | 30 Days (High) |
-| **CloudTrail Log File Integrity Disabled** | CloudTrail | CIS 3.2 | PR.DS-06 | A.8.15 | CC7.2 | 30 Days (High) |
-| **Default EBS Volume Encryption Disabled**| EC2 | CIS 2.2.1 | PR.DS-01 | A.8.24 | CC6.1 | 30 Days (High) |
-| **Console Users Without MFA Active** | IAM | CIS 1.10 | PR.AA-01 | A.5.15 | CC6.1 | 30 Days (High) |
-| **EC2 IMDSv1 Enabled (Tokenless)** | EC2 | CIS 5.4 | PR.PS-01 | A.8.20 | CC6.8 | 60 Days (Medium) |
-| **VPC Flow Logs Disabled** | VPC | CIS 3.9 | DE.AE-03 | A.8.15 | CC7.2 | 60 Days (Medium) |
-| **IAM Password Minimum Length < 14** | IAM | CIS 1.8 | PR.AA-01 | A.5.17 | CC6.1 | 60 Days (Medium) |
-| **S3 Object Versioning Suspended** | S3 | CIS 2.1.2 | PR.DS-10 | A.8.14 | A1.2 | 60 Days (Medium) |
-| **RDS Instance Single-AZ Deployment** | RDS | CIS 2.3.3 | PR.IR-01 | A.8.14 | A1.2 | 60 Days (Medium) |
-| **S3 Audit Archive Lacks Glacier Rule** | S3 | CIS 2.1.4 | PR.DS-08 | A.8.10 | A1.2 | 90 Days (Low) |
-| **AWS Support Escalation Role Missing** | IAM | CIS 1.17 | RS.CO-02 | A.5.24 | CC7.4 | 90 Days (Low) |
-
----
-
-## 📋 Sample Audit Findings & Workpaper Register
-
-### Workpaper Excerpt: `WP-IAM-001`
-- **Finding Title:** Root Account MFA is Not Enabled
-- **Resource ARN:** `arn:aws:iam::123456789012:root`
-- **Inherent Risk Score:** **25 / 25 (CRITICAL)**
-- **Control Objectives:**
-  - **CIS AWS Foundations v3.0:** Control 1.5
-  - **NIST CSF 2.0:** PR.AA-01 (Identity & Authenticity)
-  - **ISO/IEC 27001:2022:** A.5.15 (Access Control)
-  - **AICPA SOC 2:** CC6.1 (Logical Access Controls)
-- **Audit Testing Procedure:** Inspected AWS IAM Credential Report and queried `GetAccountSummary` API. Verified that `AccountMFAEnabled` flag returned `false`.
-- **Business Risk:** Compromise of root credentials bypasses all secondary IAM policies, enabling full environment compromise, ransomware encryption of EBS snapshots, and irrecoverable deletion of S3 archives.
-- **Management Remediation Action:** Enable a FIPS 140-2 Level 3 hardware security key or enterprise virtual MFA authenticator on the root account. Secure emergency recovery keys in an enterprise vault.
-
----
-
-## 🗄️ Database Schema & Records
-
-The relational SQLite database (`data/cloudguard_audit.db`) contains 3 core tables:
-
-```sql
--- Audit Engagement Header
-CREATE TABLE audit_engagements (
-    engagement_id TEXT PRIMARY KEY,
-    audit_title TEXT,
-    lead_auditor TEXT,
-    target_account_id TEXT,
-    assessment_date TEXT,
-    status TEXT
-);
-
--- Compliance Control Matrix
-CREATE TABLE compliance_controls (
-    check_id TEXT PRIMARY KEY,
-    cis_v3_control TEXT,
-    nist_csf_2_control TEXT,
-    iso_27001_control TEXT,
-    soc_2_criteria TEXT,
-    control_objective TEXT,
-    audit_testing_procedure TEXT,
-    sla_days INTEGER,
-    default_owner TEXT
-);
-
--- Audit Findings & Workpapers Register
-CREATE TABLE findings_register (
-    workpaper_ref TEXT PRIMARY KEY,
-    finding_id TEXT,
-    service TEXT,
-    check_id TEXT,
-    check_title TEXT,
-    severity TEXT,
-    inherent_risk_score INTEGER,
-    business_risk_tier TEXT,
-    resource_arn TEXT,
-    technical_description TEXT,
-    remediation_guidance TEXT,
-    owner TEXT,
-    remediation_due_date TEXT,
-    status TEXT,
-    FOREIGN KEY(check_id) REFERENCES compliance_controls(check_id)
-);
-```
-
----
-
-## 📁 Repository Structure
+For the related documentation scaffold, see [cloudguard-aws-grc-assurance](https://github.com/Nishankhadgi/cloudguard-aws-grc-assurance).
